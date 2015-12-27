@@ -30,11 +30,16 @@ module.exports = function(grunt) {
 
 		// Configuration to be run (and then tested).
 		project_version_update: {
-			default_options: {
+			default: {
 				options: {
+					git: ['./'],
+					sonar: ['./sonar-project.properties'],
+					npm: ['./']
 				},
 				files: {
-					'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+					sonar: ['sonar-project.properties'],
+					git: ['./'],
+					npm: ['./']
 				}
 			},
 			custom_options: {
@@ -66,6 +71,8 @@ module.exports = function(grunt) {
 	// Whenever the "test" task is run, first clean the "tmp" dir, then run this
 	// plugin's task(s), then test the result.
 	grunt.registerTask('test', ['clean', 'project_version_update', 'nodeunit']);
+
+	grunt.registerTask('run', ['project_version_update']);
 
 	// By default, lint and run all tests.
 	grunt.registerTask('default', ['jshint', 'test']);
