@@ -6,17 +6,16 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
-
 var exec = require('child_process'),
-	util = require('util');
+	util = require('util'),
+	lpath = require('path');
 
 module.exports = function(grunt) {
 
 	// Please see the Grunt documentation for more information regarding task
 	// creation: http://gruntjs.com/creating-tasks
 
-	grunt.registerMultiTask('project_version_update', 'Set git, sonar, npm version from only one place', function() {
+	grunt.registerMultiTask('projectVersionUpdater', 'Set git, sonar, npm version from only one place', function() {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var done = this.async(),
 		fwk = {
@@ -33,7 +32,7 @@ module.exports = function(grunt) {
 				}
 			},
 			'npm': function(path, version){
-				path = path + '/package.json';
+				path = lpath.join(path, 'package.json');
 				if (grunt.file.exists(path)) {
 					grunt.log.writeln('\t', path);
 					var npm = grunt.file.read(path);
@@ -61,21 +60,23 @@ module.exports = function(grunt) {
 				}
 			}
 		};
-		var options = this.options({
-			sonar: ['sonar-project.properties'],
-			npm: ['./'],
-			git: ['./']
-		}),
-		version = grunt.option('ver');
+		var options = this.options({}),
+		version = grunt.option('vs') || options.version;
 
 		if(!version){
-			grunt.log.warn('pass the version to update on --ver');
+			grunt.log.warn('pass the version on --vs line option or option.version task attribute ');
 			return done(false);
+		}else{
+			console.log(version);
 		}
 
+		var haveRead = false;
 		try{
 			this.files.forEach(function(f){
-				grunt.log.ok('updating: ' + f.dest + ' ...');
+				if(f.src.length){
+					grunt.log.ok('updating: ' + f.dest + ' ...');
+					haveRead = true;
+				}
 				f.src.forEach(function(path){
 					var cmd = fwk[f.dest];
 					if(cmd){
@@ -93,7 +94,12 @@ module.exports = function(grunt) {
 		}catch(e){
 			return done(false);
 		}
-		grunt.log.ok('... all done!');
+		if(haveRead){
+			return grunt.log.ok('... all done!');
+		}
+
+		grunt.log.warn('No files to read');
+		done(false);
 	});
 
 };
