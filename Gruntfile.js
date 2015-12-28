@@ -33,8 +33,8 @@ module.exports = function(grunt) {
 				},
 				files: {
 					sonar: ['sonar-project.properties'],
-					git: ['.'],
-					npm: ['.']
+					npm: ['.'],
+					git: ['.']
 				}
 			}
 		},

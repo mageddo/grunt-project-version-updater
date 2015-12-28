@@ -26,14 +26,14 @@ from `Gruntfile `
 		default: {
 			options:{
 				version: '1.0', // or --mg-v from commandline. The version of the project
-				commitVersion: true, // commit on git after update project version
+				commitVersion: true, // commit on git after update project version, to work git option file have to be on last item of list
 				overrideTag: false, // delete git tag if it exists, then create it again for the last commit
 				commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
 			},
 			files: {
 				sonar: ['sonar-project.properties'], // you need to pass array
-				git: ['.'], // if the property is not passed the framework will no be updated
-				npm: ['.']
+				npm: ['.'],
+				git: ['.'] // if the property is not passed the framework will no be updated
 			}
 		}
 	}
@@ -75,12 +75,11 @@ setting on `Gruntfile.js`
 	projectVersionUpdater: {
 		default: {
 			options:{
-				// version: '2.0'
 			},
 			files: {
 				sonar: ['sonar-project.properties'],
-				git: ['.'],
-				npm: ['.']
+				npm: ['.'],
+				git: ['.']
 			}
 		}
 	}
@@ -100,8 +99,8 @@ Terminal have preference
 # Options defaults
 
 	options: {
-		version: null, // or --mg-v from commandline. The version of the project
-		commitVersion: true, // commit on git after update project version
-		overrideTag: false, // delete git tag if it exists, then create it again for the last commit
-		commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
+		version: null,
+		commitVersion: true,
+		overrideTag: false, 
+		commitMessage: 'setting version' 
 	}
