@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// By default, lint and run all tests.
-	grunt.registerTask('default', ['jshint', 'projectVersionUpdater']);
+	grunt.registerTask('update', ['jshint', 'projectVersionUpdater']);
 
 };
 

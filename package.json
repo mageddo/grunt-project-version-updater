@@ -1,7 +1,7 @@
 {
 	"name": "grunt-project-version-updater",
 	"description": "Set git, sonar, npm version from only one place",
-	"version": "5",
+	"version": "5.0.0",
 	"homepage": "https://github.com/mageddo/grunt-project-version-updater",
 	"author": {
 		"name": "Elvis de Freitas",
@@ -29,8 +29,6 @@
 	},
 	"devDependencies": {
 		"grunt-contrib-jshint": "^0.9.2",
-		"grunt-contrib-clean": "^0.5.0",
-		"grunt-contrib-nodeunit": "^0.3.3",
 		"grunt": "~0.4.5"
 	},
 	"peerDependencies": {

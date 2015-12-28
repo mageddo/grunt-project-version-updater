@@ -1,89 +1,86 @@
-# grunt-project-version-update
+# Introduction
 
-> Set git, sonar, npm version from only one place
+Update you project `version ` from one place using **grunt**, frameworks supported
 
-## Getting Started
-This plugin requires Grunt `~0.4.5`
+* git
+* sonar
+* npm 
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-```shell
-npm install grunt-project-version-update --save-dev
-```
+# Pre requisites
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+* grunt cli
 
-```js
-grunt.loadNpmTasks('grunt-project-version-update');
-```
+	$ sudo npm install -g grunt-cli
 
-## The "project_version_update" task
 
-### Overview
-In your project's Gruntfile, add a section named `project_version_update` to the data object passed into `grunt.initConfig()`.
 
-```js
-grunt.initConfig({
-  project_version_update: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
-```
+# How to use 
 
-### Options
+from terminal 
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+	grunt update -vs 0.0.1
 
-A string value that is used to do something with whatever.
+from file 
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+	projectVersionUpdater: {
+		default: {
+			options:{
+				version: '2.0.x'
+			},
+			files: {
+				sonar: ['sonar-project.properties'], // you need to pass array
+				git: ['.'], // if the property is not passed the framework will no be updated
+				npm: ['.']
+			}
+		}
+	}
+	....
+			
+# Testing before install
 
-A string value that is used to do something else with whatever else.
+On this project you can test it running
 
-### Usage Examples
+	$ npm install
+	$ grunt update --vs 5.0.0
+	
+	Running "projectVersionUpdater:default" (projectVersionUpdater) task
+	5.0.0
+	>> updating: sonar ...
+		sonar-project.properties
+	>> sonar updated!
+	>> updating: git ...
+		.
+	>> git updated!
+	>> updating: npm ...
+		package.json
+	>> npm updated!
+	>> ... all done!
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+		
+or 
 
-```js
-grunt.initConfig({
-  project_version_update: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+	grunt update # to update from Gruntfile.js fixed version 
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
 
-```js
-grunt.initConfig({
-  project_version_update: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+			
+# Installation
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+	$ npm install grunt-project-version-updater --save-dev
 
-## Release History
-_(Nothing yet)_
+setting on `Gruntfile.js`
+
+	projectVersionUpdater: {
+		default: {
+			options:{
+				// version: '2.0'
+			},
+			files: {
+				sonar: ['sonar-project.properties'],
+				git: ['.'],
+				npm: ['.']
+			}
+		}
+	}
+	...
+	grunt.registerTask('update', ['projectVersionUpdater']);
