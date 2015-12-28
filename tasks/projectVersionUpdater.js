@@ -48,6 +48,12 @@ module.exports = function(grunt) {
 				if (grunt.file.exists(path)) {
 					grunt.log.writeln('\t', path);
 					try{
+						if(this.commitVersion){
+							exec.execFileSync('git', ['commit', '-am', this.message], {cwd: path});
+						}
+						if(this.overrideTag){
+							this._deleteTag(version);
+						}
 						exec.execFileSync('git', ['tag', version], {cwd: path});
 						return true;
 					}catch(err){
@@ -55,19 +61,30 @@ module.exports = function(grunt) {
 						return false;
 					}
 				}else{
+					this._deleteTag(path, version);
 					grunt.log.warn('npm file "' + path + '" not found.');
 					return false;
 				}
+			},
+			'_deleteTag': function(path, version){
+				exec.execFileSync('git', ['tag', '-d', version], {cwd: path});
 			}
 		};
-		var options = this.options({}),
-		version = grunt.option('vs') || options.version;
+		var options = this.options({
+			version: null, // the version of the project (command line have preference)
+			commitVersion: true, // commit on git after update project version
+			overrideTag: false, // delete git tag if it exists
+			commitMessage: 'setting version' // message to commit if commitVersion is able
+		});
 
-		if(!version){
-			grunt.log.warn('pass the version on --vs line option or option.version task attribute ');
+		options.version = grunt.option('mg-v') || options.version;
+		options.commitMessage = grunt.option('mg-m') || options.commitMessage;
+
+		if(!options.version){
+			grunt.log.warn('pass the version on --mg-v line option or option.version task attribute ');
 			return done(false);
 		}else{
-			console.log(version);
+			console.log(options.version);
 		}
 
 		var haveRead = false;
@@ -80,7 +97,7 @@ module.exports = function(grunt) {
 				f.src.forEach(function(path){
 					var cmd = fwk[f.dest];
 					if(cmd){
-						if(cmd(path, version)){
+						if(cmd.call(options, path, options.version)){
 							grunt.log.ok(f.dest + ' updated!');
 						}else{
 							throw '';

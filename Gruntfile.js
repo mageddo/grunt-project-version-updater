@@ -26,7 +26,10 @@ module.exports = function(grunt) {
 		projectVersionUpdater: {
 			default: {
 				options:{
-					version: '2.0'
+					version: '2.0',
+					commitVersion: true, // commit on git after update project version
+					overrideTag: false, // delete git tag if it exists
+					commitMessage: 'setting version' // message to commit if commitVersion is able
 				},
 				files: {
 					sonar: ['sonar-project.properties'],
