@@ -93,8 +93,6 @@ module.exports = function(grunt) {
 		if(!options.version){
 			grunt.log.warn('pass the version on --mg-v line option or option.version task attribute ');
 			return done(false);
-		}else{
-			console.log(options.version);
 		}
 
 		var haveRead = false;
