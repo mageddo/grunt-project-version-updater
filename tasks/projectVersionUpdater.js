@@ -81,11 +81,12 @@ module.exports = function(grunt) {
 				}catch(e){}
 			}
 		};
+		// commandline have preference
 		var options = this.options({
-			version: null, // the version of the project (command line have preference)
+			version: null, // or --mg-v from commandline. The version of the project 
 			commitVersion: true, // commit on git after update project version
-			overrideTag: false, // delete git tag if it exists
-			commitMessage: 'setting version' // message to commit if commitVersion is able
+			overrideTag: false, // delete git tag if it exists, then create it again for the last commit
+			commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
 		});
 
 		options.version = grunt.option('mg-v') || options.version;

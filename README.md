@@ -11,22 +11,24 @@ Update you project `version ` from one place using **grunt**, frameworks support
 
 * grunt cli
 
-	$ sudo npm install -g grunt-cli
-
+		$ sudo npm install -g grunt-cli
 
 
 # How to use 
 
 from terminal 
 
-	grunt update -vs 0.0.1
+	grunt update --mg-v 0.0.1
 
-from file 
+from `Gruntfile `
 
 	projectVersionUpdater: {
 		default: {
 			options:{
-				version: '2.0.x'
+				version: '1.0', // or --mg-v from commandline. The version of the project
+				commitVersion: true, // commit on git after update project version
+				overrideTag: false, // delete git tag if it exists, then create it again for the last commit
+				commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
 			},
 			files: {
 				sonar: ['sonar-project.properties'], // you need to pass array
@@ -42,7 +44,7 @@ from file
 On this project you can test it running
 
 	$ npm install
-	$ grunt update --vs 5.0.0
+	$ grunt update --mg-v 5.0.0
 	
 	Running "projectVersionUpdater:default" (projectVersionUpdater) task
 	5.0.0
@@ -84,3 +86,22 @@ setting on `Gruntfile.js`
 	}
 	...
 	grunt.registerTask('update', ['projectVersionUpdater']);
+	
+
+# Terminal Options
+
+Terminal have preference
+
+	--mg-v 
+		The version of the project
+	--mg-m 
+		Message to commit if commitVersion is able
+
+# Options defaults
+
+	options: {
+		version: null, // or --mg-v from commandline. The version of the project
+		commitVersion: true, // commit on git after update project version
+		overrideTag: false, // delete git tag if it exists, then create it again for the last commit
+		commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
+	}
