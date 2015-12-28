@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 					version: '2.0',
 					commitVersion: true, // commit on git after update project version
 					overrideTag: true, // delete git tag if it exists
-					commitMessage: 'setting version' // message to commit if commitVersion is able
+					commitMessage: 'setting new version ' // message to commit if commitVersion is able
 				},
 				files: {
 					sonar: ['sonar-project.properties'],
