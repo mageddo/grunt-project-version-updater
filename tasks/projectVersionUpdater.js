@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 							exec.execFileSync('git', ['commit', '-am', this.message], {cwd: path});
 						}
 						if(this.overrideTag){
-							this._deleteTag(path, version);
+							fwk._deleteTag(path, version);
 						}
 						exec.execFileSync('git', ['tag', version], {cwd: path});
 						return true;
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 						return false;
 					}
 				}else{
-					this._deleteTag(path, version);
+					fwk._deleteTag(path, version);
 					grunt.log.warn('npm file "' + path + '" not found.');
 					return false;
 				}
