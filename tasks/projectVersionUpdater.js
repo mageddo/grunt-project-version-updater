@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 							try{
 								exec.execFileSync('git', ['commit', '-am', this.commitMessage], {cwd: path});
 							}catch(e){
-								console.log(e.toString());
+								console.log('testando...',e.status);
 							}
 						}
 						if(this.overrideTag){
