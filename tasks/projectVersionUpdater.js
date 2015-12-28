@@ -52,6 +52,13 @@ module.exports = function(grunt) {
 							try{
 								exec.execFileSync('git', ['commit', '-am', this.commitMessage], {cwd: path});
 							}catch(e){
+								switch(e.status){
+									case 1:
+										console.log('\t', e.stderr.toString());
+										break;
+									default:
+										grunt.log.warn(e.stderr.toString());
+								}
 								console.log('testando...',e.status);
 							}
 						}
