@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 					grunt.log.writeln('\t', path);
 					try{
 						if(this.commitVersion){
-							exec.execFileSync('git', ['commit', '-am', this.message], {cwd: path});
+							exec.execFileSync('git', ['commit', '-am', this.commitMessage], {cwd: path});
 						}
 						if(this.overrideTag){
 							fwk._deleteTag(path, version);
