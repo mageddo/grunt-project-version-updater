@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 							}catch(e){
 								switch(e.status){
 									case 1:
-										console.log('\t', 'testando', e.stderr);
+										console.log('\t', 'testando', e.stdout.toString());
 										break;
 									default:
 										grunt.log.warn(e.stderr.toString());
