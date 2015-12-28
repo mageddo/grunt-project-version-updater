@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			default: {
 				options:{
 					version: '2.0',
-					commitVersion: true, // commit on git after update project version
+					commitVersion: false, // commit on git after update project version
 					overrideTag: true, // delete git tag if it exists
 					commitMessage: 'setting new version ' // message to commit if commitVersion is able
 				},

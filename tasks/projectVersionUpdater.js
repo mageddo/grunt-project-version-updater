@@ -71,13 +71,14 @@ module.exports = function(grunt) {
 						return false;
 					}
 				}else{
-					fwk._deleteTag(path, version);
 					grunt.log.warn('npm file "' + path + '" not found.');
 					return false;
 				}
 			},
 			'_deleteTag': function(path, version){
-				exec.execFileSync('git', ['tag', '-d', version], {cwd: path});
+				try{
+					exec.execFileSync('git', ['tag', '-d', version], {cwd: path});
+				}catch(e){}
 			}
 		};
 		var options = this.options({
