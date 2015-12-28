@@ -52,8 +52,7 @@ module.exports = function(grunt) {
 							try{
 								exec.execFileSync('git', ['commit', '-am', this.commitMessage], {cwd: path});
 							}catch(e){
-								console.log(e);
-								// grunt.log.warn(e);
+								console.log(e.toString());
 							}
 						}
 						if(this.overrideTag){
