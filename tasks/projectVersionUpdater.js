@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 							exec.execFileSync('git', ['commit', '-am', this.message], {cwd: path});
 						}
 						if(this.overrideTag){
-							this._deleteTag(version);
+							this._deleteTag(path, version);
 						}
 						exec.execFileSync('git', ['tag', version], {cwd: path});
 						return true;
