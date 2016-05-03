@@ -1,7 +1,8 @@
 # Introduction
 
-Update you project `version ` from one place using **grunt**, frameworks supported
+Update you project `version` from one place using **grunt**. Pick the project/release version in the **Gruntfile.js** (or pass the version by terminal argument) and this plugin will update: **git**, **sonar** and **npm** hardcoded versions automatically
 
+## Supported frameworks
 * git
 * sonar
 * npm 
@@ -22,86 +23,93 @@ from terminal
 
 from `Gruntfile `
 
-	projectVersionUpdater: {
-		default: {
-			options:{
-				version: '1.0', // or --mg-v from commandline. The version of the project
-				commitVersion: true, // commit on git after update project version
-				overrideTag: false, // delete git tag if it exists, then create it again for the last commit
-				commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
-			},
-			files: {
-				sonar: ['sonar-project.properties'], // you need to pass array
-				git: ['.'], // if the property is not passed the framework will no be updated
-				npm: ['.']
-			}
+```javascript
+projectVersionUpdater: {
+	default: {
+		options:{
+			version: '1.0', // or --mg-v from commandline. The version of the project
+			commitVersion: true, // commit on git after update project version
+			overrideTag: false, // delete git tag if it exists, then create it again for the last commit
+			commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
+		},
+		files: {
+			sonar: ['sonar-project.properties'], // you need to pass array
+			git: ['.'], // if the property is not passed the framework will no be updated
+			npm: ['.']
 		}
 	}
-	....
-			
-# Testing before install
+}
+....
+```
 
-On this project you can test it running
+# Testing this project
 
-	$ npm install
-	$ grunt update --mg-v 5.0.0
-	
-	Running "projectVersionUpdater:default" (projectVersionUpdater) task
-	5.0.0
-	>> updating: sonar ...
-		sonar-project.properties
-	>> sonar updated!
-	>> updating: git ...
-		.
-	>> git updated!
-	>> updating: npm ...
-		package.json
-	>> npm updated!
-	>> ... all done!
+On this project you can test by running:
 
-		
+```bash
+$ npm install
+$ grunt update --mg-v 5.0.0
+
+Running "projectVersionUpdater:default" (projectVersionUpdater) task
+5.0.0
+>> updating: sonar ...
+	sonar-project.properties
+>> sonar updated!
+>> updating: git ...
+	.
+>> git updated!
+>> updating: npm ...
+	package.json
+>> npm updated!
+>> ... all done!
+```
 or 
 
-	grunt update # to update from Gruntfile.js fixed version 
+```bash
+grunt update # to update from Gruntfile.js hardcoded `version` property
+```
 
+so check the **git** tag, **npm** `package.json` and **sonar** properties
 
-			
 # Installation
 
 	$ npm install grunt-project-version-updater --save-dev
 
 setting on `Gruntfile.js`
 
-	projectVersionUpdater: {
-		default: {
-			options:{
-				// version: '2.0'
-			},
-			files: {
-				sonar: ['sonar-project.properties'],
-				git: ['.'],
-				npm: ['.']
-			}
+```javascript
+projectVersionUpdater: {
+	default: {
+		options:{
+			// version: '2.0'
+		},
+		files: {
+			sonar: ['sonar-project.properties'],
+			git: ['.'],
+			npm: ['.']
 		}
 	}
-	...
-	grunt.registerTask('update', ['projectVersionUpdater']);
-	
+}
+...
+grunt.registerTask('update', ['projectVersionUpdater']);
+```	
 
 # Terminal Options
 
-Terminal have preference
-
 	--mg-v 
-		The version of the project
+		The version of the project to generate
 	--mg-m 
-		Message to commit if commitVersion is able
+		Message to commit if commitVersion is enabled
 
-# Options defaults
+If the version is hardcoded on the **Gruntfile.js** and you set the version on terminal, the terminal have preference
 
-	options: {
-		version: null, // or --mg-v from commandline. The version of the project
-		commitVersion: true, // commit on git after update project version
-		overrideTag: false, // delete git tag if it exists, then create it again for the last commit
-		commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
-	}
+# Default options
+
+```javascript
+options: {
+	version: null, // or --mg-v from commandline. The version of the project
+	commitVersion: true, // commit on git after update project version
+	overrideTag: false, // delete git tag if it exists, then create it again for the last commit
+	commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
+}
+```
