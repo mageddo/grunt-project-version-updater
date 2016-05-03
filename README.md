@@ -113,3 +113,6 @@ options: {
 	commitMessage: 'setting version' // or --mg-m from commandline. Message to commit if commitVersion is able
 }
 ```
+
+# License
+[MIT License](https://github.com/mageddo/grunt-project-version-updater/blob/master/LICENSE-MIT)
